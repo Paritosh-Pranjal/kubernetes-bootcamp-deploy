@@ -22,20 +22,24 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
-            - name: Cache Node Modules
-              uses: actions/cache@v3
-              with:
-                path: frontend/node_modules
-                key: ${{ runner.os }}-frontend-node_modules-${{ hashFiles('frontend/package.json') }}
-
             - name: Setup Node.js
               uses: actions/setup-node@v3
               with:
                 node-version: 18
+
+            - name: Cache Node Modules
+              uses: actions/cache@v3
+              id: cache
+              with:
+                path: frontend/node_modules
+                key: ${{ runner.os }}-frontend-node_modules-${{ hashFiles('frontend/package.json') }}
+                restore-keys: |
+                    ${{ runner.os }}-frontend-node_modules-         
         
             - name: Install Dependencies
-              run: npm install
-        
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm install --legacy-peer-deps
+
             - name: Build application
               run: npm run build
         
