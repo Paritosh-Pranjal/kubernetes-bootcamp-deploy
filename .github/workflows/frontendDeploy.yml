@@ -1,5 +1,5 @@
 name: Frontend deployment
-run-name: Frontend deployment update triggered by ${{ github.actor }} :- ${{ github.run_number }}
+run-name: Frontend deployment update triggered by ${{ github.actor }}
 
 on:
     push:
