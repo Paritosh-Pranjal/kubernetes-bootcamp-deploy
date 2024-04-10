@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend
+        working-directory: backend/${{ matrix.services }}
     timeout-minutes: 10
     strategy:
       matrix:
@@ -49,8 +49,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-
-
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
@@ -66,4 +64,4 @@ jobs:
         with:
           context: backend/${{ matrix.services }}
           push: true
-          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bootcamp-backend-${{ matrix.services }}:${{ github.run_number }}
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bootcamp-backend-eks-${{ matrix.services }}:${{ github.run_number }}

@@ -55,4 +55,4 @@ jobs:
               with:
                 context: ./frontend
                 push: true
-                tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bootcamp-frontend:${{ github.run_number }}
+                tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/bootcamp-frontend-eks:${{ github.run_number }}
